@@ -1,22 +1,18 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Button, TextInput, StatusBar } from 'react-native';
+import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
 
 
-export function Loguin(){
-    return(
+export default function Login() {
+    return (
+        <View>
             <View>
                 <View>
-                    <Text>Login</Text>
-                    <Button title="Cadastre-se"/>
+                    <TextInput />
+                    <TextInput />
+                    <Button title="Log In"/>
                 </View>
-                <View>
-                    <View>
-                        <TextInput />
-                        <TextInput />
-                        <Button title="Log In" />
-                    </View>
-                    <Button title="Esqueceu sua senha?" />
-                </View>
+                <Button title="Esqueceu sua senha?"/>
             </View>
+        </View>
     );
 }
