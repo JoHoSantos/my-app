@@ -1,14 +1,21 @@
-import { StyleSheet, Tex, View, Button } from 'reac-native';
-import {userState} from 'react'
+import { StyleSheet, Text, View, Button} from 'react-native';
+import {useState, useEffect} from 'react'
 
 export function ComponenteTest({nome}){
 
-    const [data, setData]=useState();
+    const [data, setData]=useState(0);
+    
+    useEffect(()=>{
+        return ()=>{
+            alert('alerta')
+
+        }
+    },[data])
 
     return(
         <View>
-        <Text>{nome}</Text>
-        <Button onClick={()=setData(9)}>Clique Aqui</Button>
+            <Text>{nome} {data}</Text>
+            <Button onPress={()=>setData(data +1)} title='clique aqui'/>
         </View>
     );
 }
