@@ -1,28 +1,34 @@
 import { StatusBar } from 'expo-status-bar';
 import Input from '../Components/Input'
 import Button from '../Components/Button'
-import { StyleSheet, Text, View,SafeAreaView,TouchableOpacity} from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity } from 'react-native';
+import { resetPasswordValidationSchema } from '../Validation/Form'
+import { Formik } from 'formik'
 
 export default function Home() {
   return (
     <SafeAreaView style={styles.container}>
-    <View style={styles.containerWrapper}>
-      <View style={styles.containerInput}>
-        <Input name="Email" type="text" placeholder="Email" />
-      </View>
-      <View style={styles.containerInput}>
-        <Input name="CPF" type="text" placeholder="CPF" />
-      </View>
-      <View style={styles.containerInput}>
-        <Input name="Password" type="password" placeholder="Senha" />
-      </View>
+      <View style={styles.containerWrapper}>
+        <Formik validationSchema={resetPasswordValidationSchema} iniitalValues={{ Email: '', Password: '', CPF: '' }} onSubmit={(values) => alert(values)}>
+          {({
+            handleChange,
+            handleSubmit,
+            values,
+            errors,
+            isValid
+          }) => (<>  <View style={styles.containerInput}>
+            <Input name="Email" value={values.Email} type="text "onChange={handleChange('Email')} placeholder="Email" />
+            {errors.Email && <Text Style={styles.textError}>{errors.Email}</Text>}
+          </View>
 
-      <View style={styles.containerButton}>
-        <Button title="Cadastrar-se" onPress={()=>alert('se cadastrou')} />
-      </View>
+            <View style={styles.containerButton}>
+              <Button title="Redefinir Senha" onPress={handleSubmit} />
+            </View></>)}
 
-    </View>
-  </SafeAreaView>
+        </Formik>
+   
+      </View>
+    </SafeAreaView>
   );
 }
 
@@ -32,17 +38,21 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingLeft: '5%', 
+    paddingLeft: '5%',
     paddingTop: '5%'
   },
   containerWrapper: {
     flex: 1,
     width: '100%',
-  containerInput:{
-    paddingTop: 18,
-  },
-  containerButton:{
-    paddingTop: 18,
-    width: '100%',
-  },
-}});
+    containerInput: {
+      paddingTop: 18,
+    },
+    containerButton: {
+      paddingTop: 18,
+      width: '100%',
+    },
+    textError:{
+      color:'red'
+    }
+  }
+});
